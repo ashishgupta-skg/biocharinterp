@@ -14,14 +14,13 @@ def interpolation(shape1,shape2,nShapes):
 	for i in xrange(nShapes):
 		i=i+1
 		for j in xrange(nPoints):
-			y1 = shape1[j][1]
-			y2 = shape2[j][1]
+			y1 = shape1[j]
+			y2 = shape2[j]
 			dy = (y2-y1)/(nShapes+1)
 
-			xN = shape1[j][0]
 			yN = y1 + i*dy
 
-			N[i-1].append([xN,yN])
+			N[i-1].append(yN)
 	return N
 
 
@@ -39,3 +38,6 @@ print inputList
 for key,value in output.items():
     outputList.append(value)
 print outputList
+
+complete = interpolation(inputList,outputList,8)
+print complete
