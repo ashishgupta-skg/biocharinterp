@@ -2,5 +2,6 @@
 	"muscle":1,
 	"weight":1,
 	"proportions":1,
-	"height":1
+	"height":1,
+    "xyz":1
 }
