@@ -5,6 +5,11 @@ import design
 import design2
 import io
 
+def writeFile(outputjson,files):
+    with io.open('data%d.json' % files, 'w', encoding='utf8') as outfile:
+         outfile.write(unicode(json.dumps(outputjson, ensure_ascii=False)))
+
+
 def interpolation(shape1,shape2,nShapes):
 	# nShapes=3
 	nPoints = len(shape1)
@@ -23,21 +28,28 @@ def interpolation(shape1,shape2,nShapes):
 			N[i-1].append(yN)
 	return N
 
-
 with open('design.json', 'r') as f:
     input = json.load(f)
 with open('design2.json','r') as f2:
     output = json.load(f2)
 inputList = []
 outputList = []
+keyList = []
 
 for key,value in input.items():
     inputList.append(value)
-print inputList
+    keyList.append(key)
 
 for key,value in output.items():
     outputList.append(value)
-print outputList
 
 complete = interpolation(inputList,outputList,8)
-print complete
+print "Length of out",len(complete)
+
+for i in range(0,len(complete)):
+    with open('design.json', 'r') as f:
+        newjson = json.load(f)
+        for j in range(0,len(complete[i])):
+            newjson[keyList[j]] = complete[i][j]
+        print newjson.items()
+        writeFile(newjson,i)    
